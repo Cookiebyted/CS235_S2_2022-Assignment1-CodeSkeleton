@@ -1,9 +1,13 @@
 class Artist:
     def __init__(self, artist_id: int, full_name: str):
-        # TODO
-        self.__artist_id: int = artist_id
-        self.__full_name = None
-        pass
+        if not isinstance(artist_id, int) or artist_id < 0:
+            raise ValueError
+        else:
+           self.__artist_id: int = artist_id
+        self.__full_name: str = None
+        if isinstance(full_name, str):
+            self.__full_name = full_name.rstrip(' ')
+            self.__full_name = self.__full_name.lstrip(' ')
 
     @property
     def artist_id(self) -> int:
@@ -15,8 +19,11 @@ class Artist:
 
     @full_name.setter
     def full_name(self, new_full_name):
-        # TODO
-        pass
+        if isinstance(new_full_name, str):
+            self.__full_name = new_full_name.rstrip(' ')
+            self.__full_name = self.__full_name.lstrip(' ')
+        else:
+            self.__full_name = None
 
     def __repr__(self):
         # we use access via the property here
@@ -28,9 +35,7 @@ class Artist:
         return self.artist_id == other.artist_id
 
     def __lt__(self, other):
-        # TODO
-        pass
+        return self.artist_id < other.artist_id
 
     def __hash__(self):
-        # TODO
-        pass
+        return hash(self.artist_id)
